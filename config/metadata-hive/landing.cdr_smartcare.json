@@ -1,0 +1,26 @@
+{
+  "schemaName":    "landing",
+  "tableName":     "cdr_smartcare",
+  "locationHDFS":  "/Dev/Data/landing/",
+  "format":        "parquet",
+  "delimiter":       "|",
+  "partition":  [ {"columnName":"starttime","columnType":"string"} ],
+  "metadata": [
+                {"columnName":"msisdn","columnType":"string"},
+                {"columnName":"imsi","columnType":"bigint"},
+                {"columnName":"tac","columnType":"string"},
+                {"columnName":"cgisai","columnType":"string"},
+                {"columnName":"mcc","columnType":"bigint"},
+                {"columnName":"mnc","columnType":"bigint"},
+                {"columnName":"rat","columnType":"bigint"},
+                {"columnName":"apn","columnType":"string"},
+                {"columnName":"prot_category","columnType":"bigint"},
+                {"columnName":"prot_type","columnType":"bigint"},
+                {"columnName":"l4_ul_throughput","columnType":"bigint"},
+                {"columnName":"l4_dw_throughput","columnType":"bigint"},
+                {"columnName":"l4_ul_packets","columnType":"bigint"},
+                {"columnName":"l4_dw_packets","columnType":"bigint"},
+                {"columnName":"tcpconncount","columnType":"bigint"},
+                {"columnName":"tcpconnsucccount","columnType":"bigint"}
+  ]
+}

@@ -1,0 +1,16 @@
+products:
+   /Users/ADVINCULA/Documents/WorkspaceEntel/kafka-training-producer/src/main/scala/com/entel/common/util/ApplicationParameters.scala -> /Users/ADVINCULA/Documents/WorkspaceEntel/kafka-training-producer/build/classes/scala/main/com/entel/common/util/ApplicationParameters.class
+   /Users/ADVINCULA/Documents/WorkspaceEntel/kafka-training-producer/src/main/scala/com/entel/processor/Hello.scala -> /Users/ADVINCULA/Documents/WorkspaceEntel/kafka-training-producer/build/classes/scala/main/com/entel/processor/Hello$.class
+   /Users/ADVINCULA/Documents/WorkspaceEntel/kafka-training-producer/src/main/scala/com/entel/processor/Hello.scala -> /Users/ADVINCULA/Documents/WorkspaceEntel/kafka-training-producer/build/classes/scala/main/com/entel/processor/Hello.class
+binary dependencies:
+   /Users/ADVINCULA/Documents/WorkspaceEntel/kafka-training-producer/src/main/scala/com/entel/common/util/ApplicationParameters.scala -> /Library/Java/JavaVirtualMachines/jdk1.8.0_101.jdk/Contents/Home/jre/lib/rt.jar
+   /Users/ADVINCULA/Documents/WorkspaceEntel/kafka-training-producer/src/main/scala/com/entel/common/util/ApplicationParameters.scala -> /Users/ADVINCULA/.gradle/caches/modules-2/files-2.1/com.typesafe/config/1.3.3/4b68c2d5d0403bb4015520fcfabc88d0cbc4d117/config-1.3.3.jar
+   /Users/ADVINCULA/Documents/WorkspaceEntel/kafka-training-producer/src/main/scala/com/entel/common/util/ApplicationParameters.scala -> /Users/ADVINCULA/.gradle/caches/modules-2/files-2.1/org.scala-lang/scala-library/2.11.12/bf5534e6fec3d665bd6419c952a929a8bdd4b591/scala-library-2.11.12.jar
+   /Users/ADVINCULA/Documents/WorkspaceEntel/kafka-training-producer/src/main/scala/com/entel/processor/Hello.scala -> /Library/Java/JavaVirtualMachines/jdk1.8.0_101.jdk/Contents/Home/jre/lib/rt.jar
+   /Users/ADVINCULA/Documents/WorkspaceEntel/kafka-training-producer/src/main/scala/com/entel/processor/Hello.scala -> /Users/ADVINCULA/.gradle/caches/modules-2/files-2.1/org.scala-lang/scala-library/2.11.12/bf5534e6fec3d665bd6419c952a929a8bdd4b591/scala-library-2.11.12.jar
+source dependencies:
+external dependencies:
+class names:
+   /Users/ADVINCULA/Documents/WorkspaceEntel/kafka-training-producer/src/main/scala/com/entel/common/util/ApplicationParameters.scala -> com.entel.common.util.ApplicationParameters
+   /Users/ADVINCULA/Documents/WorkspaceEntel/kafka-training-producer/src/main/scala/com/entel/processor/Hello.scala -> com.entel.processor.Hello
+   /Users/ADVINCULA/Documents/WorkspaceEntel/kafka-training-producer/src/main/scala/com/entel/processor/Hello.scala -> com.entel.processor.Hello$

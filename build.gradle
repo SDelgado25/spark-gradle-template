@@ -1,0 +1,192 @@
+buildscript {
+    repositories {
+        maven { url = ARTIFACTORY_URL }
+    }
+    dependencies {
+        classpath "org.sonarsource.scanner.gradle:sonarqube-gradle-plugin:${sonarqubeGradlePluginVersion}"
+        classpath "org.jfrog.buildinfo:build-info-extractor-gradle:${jfrogBuildInfoPluginVersion}"
+        classpath "com.gradle.publish:plugin-publish-plugin:${publishGradlePluginVersion}"
+    }
+}
+
+group = group
+def projectName = description
+
+apply plugin: 'com.jfrog.artifactory'
+apply plugin: 'scala'
+apply plugin: 'java'
+apply plugin: 'jacoco'
+apply plugin: 'maven'
+apply plugin: 'maven-publish'
+apply plugin: 'org.sonarqube'
+apply plugin: 'eclipse'
+
+configurations {
+    compile
+    provided
+    compile.extendsFrom provided
+}
+
+dependencies {
+
+    compile group: 'org.scala-lang', name: 'scala-library', version: '2.11.12'
+    compile group: 'org.scala-lang', name: 'scala-reflect', version: '2.11.12'
+    compile group: 'org.scala-lang', name: 'scala-compiler', version: '2.11.12'
+
+    compile group: "com.google.code.gson", name: "gson", version: "2.8.5"
+    compile group: "org.apache.commons", name: "commons-pool2", version: "2.4.2"
+    compile group: "com.typesafe", name: "config", version: "1.3.3"
+
+    compile fileTree(dir: "${project.projectDir}/lib", include: ['*.jar','**/**.jar','**/**/**.jar'])
+
+    provided group: 'org.apache.spark', name: 'spark-core_2.11', version: '2.2.0'
+    provided group: 'org.apache.spark', name: 'spark-sql_2.11', version: '2.2.0'
+
+    compile group:'com.databricks', name:'spark-avro_2.11', version:'4.0.0'
+
+    compile group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: '2.9.6'
+    compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.9.6'
+    compile group: 'com.fasterxml.jackson.module', name: 'jackson-module-scala_2.11', version: '2.9.6'
+
+}
+
+compileJava {
+    options.encoding = "UTF-8"
+}
+
+repositories {
+    maven {
+        url ARTIFACTORY_URL
+    }
+}
+
+task copyDependencies(type: Copy) {
+    String outputDir = "$project.projectDir/build/"+ version +"/dependencies";
+    from configurations.runtime - configurations.provided
+    into outputDir
+}
+
+sonarqube {
+    properties {
+        properties["sonar.language"] = "java"
+        properties["sonar.java.coveragePlugin"] = "jacoco"
+        properties["sonar.log.level"] = "TRACE"
+        properties["sonar.jacoco.reportPath"] = "${buildDir}/jacoco/jacocoTest.exec"
+    }
+}
+
+jacoco {
+    toolVersion = "${jacocoPluginVersion}"
+    reportsDir = file("${buildDir}/customJacocoReportDir")
+}
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
+
+compileJava.options.encoding = 'UTF-8'
+
+compileScala {
+    scalaCompileOptions.encoding = 'Cp1252'
+}
+
+test {
+    jacoco {
+        append = false
+        destinationFile = file("${buildDir}/jacoco/jacocoTest.exec")
+    }
+}
+
+
+artifactory {
+    contextUrl = "${System.env.ARTIFACT_SERVER_URL}"
+
+    publish {
+        repository {
+            repoKey = "${System.env.REPOKEY}"
+            username = "${System.env.ARTIFACT_USER_NAME}"
+            password = "${System.env.ARTIFACT_USER_PASSWORD}"
+            maven = true
+        }
+        defaults {
+            publications('MavenPublication')
+            publishBuildInfo=true
+            publishArtifacts=true
+            publishPom=true
+            publishIvy=false
+        }
+        resolve {
+            repository {
+                repoKey = "${System.env.REPOKEY}"
+                addMatrixParams(['key': 'value'])
+                maven = true
+            }
+        }
+    }
+    // Redefine basic properties of the build info object
+    clientConfig.publisher.repoKey="${System.env.REPOKEY}"
+    clientConfig.setIncludeEnvVars(true)
+    clientConfig.setEnvVarsExcludePatterns("${System.env.BUILD_INFO_ENVVARSEXCLUDEPATTERNS}")
+    clientConfig.info.setBuildName("${System.env.BUILD_NAME}")
+    clientConfig.info.setBuildNumber("${System.env.BUILD_UNIQUE_ID}")
+    clientConfig.info.setArtifactoryPluginVersion("${jfrogBuildInfoPluginVersion}")
+    clientConfig.info.setBuildUrl("${System.env.BUILD_URL}")
+    clientConfig.info.setVcsUrl("${System.env.BUILD_GIT_URL}")
+    clientConfig.timeout = 600 // Artifactory connection timeout (in seconds). The default timeout is 300 seconds.
+
+    resolve {
+        contextUrl = "${System.env.ARTIFACT_SERVER_URL}"
+        repository {
+            repoKey='public'
+            maven=true
+        }
+    }
+}
+
+allprojects {
+    apply plugin: 'com.jfrog.artifactory'
+    apply plugin: 'maven-publish'
+
+    group = group
+    version = version
+
+    repositories {
+        maven { url ARTIFACTORY_URL }
+        maven { url "${System.env.ARTIFACT_SERVER_URL}/${System.env.REPOKEY}" }
+        maven { url "${System.env.ARTIFACT_SERVER_URL}/public" }
+    }
+
+    publishing {
+        publications {
+            MavenPublication(MavenPublication) {
+                from components.java
+                afterEvaluate {
+                    artifactId = jar.baseName
+                }
+            }
+        }
+    }
+}
+
+jar {
+    baseName = artifactId
+    manifest {
+        attributes  'Manifest-Version' : '1.0',
+                    'Implementation-Title': baseName,
+                    'Implementation-Version': version,
+                    'Created-By' : 'Oracle Corporation'
+    }
+}
+
+subprojects {
+    publishing {
+        publications {
+            mavenJava {
+                from components.java
+                afterEvaluate {
+                    artifactId = jar.baseName
+                }
+            }
+        }
+    }
+}

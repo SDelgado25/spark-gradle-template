@@ -1,0 +1,5 @@
+Manifest-Version: 1.0
+Implementation-Title: kafka-training-producer
+Implementation-Version: 1.0.0
+Created-By: Oracle Corporation
+

@@ -1,0 +1,37 @@
+{
+  "schema":    "landing",
+  "tableName": "voz-3G",
+  "location":  "/Dev/Data/landing/",
+  "partition": "recordtype",
+  "format":    "parquet",
+  "metadata": [
+    {"columnName":"recordtype","columnType":"begint"},
+    {"columnName":"servedimsi","columnType":"string"},
+    {"columnName":"servedimei","columnType":"string"},
+    {"columnName":"servedmsisdn","columnType":"string"},
+    {"columnName":"callingnumbercdr","columnType":"string"},
+    {"columnName":"callednumbercdr","columnType":"string"},
+    {"columnName":"connectednumber","columnType":"string"},
+    {"columnName":"mscincomingroute","columnType":"string"},
+    {"columnName":"mscoutgoingroute","columnType":"string"},
+    {"columnName":"location_lac","columnType":"begint"},
+    {"columnName":"location_ic","columnType":"begint"},
+    {"columnName":"answertimecdr","columnType":""},
+    {"columnName":"releasetime","columnType":"begint"},
+    {"columnName":"callduration","columnType":"begint"},
+    {"columnName":"causeforterm","columnType":"begint"},
+    {"columnName":"translatednumber","columnType":"begint"},
+    {"columnName":"setuptime","columnType":""},
+    {"columnName":"file_name","columnType":""},
+    {"columnName":"status","columnType":"begint"},
+    {"columnName":"error_code","columnType":"begint"},
+    {"columnName":"servicekey","columnType":"begint"},
+    {"columnName":"csfbflag","columnType":""},
+    {"columnName":"smstype","columnType":""},
+    {"columnName":"tde","columnType":"begint"},
+    {"columnName":"number_b","columnType":"string"},
+    {"columnName":"fechacarga","columnType":""},
+    {"columnName":"descfile","columnType":""}
+  ]
+
+}

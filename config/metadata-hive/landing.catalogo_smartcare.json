@@ -1,0 +1,14 @@
+{
+  "schemaName":    "landing",
+  "tableName":     "catalogo_smartcare",
+  "locationHDFS":  "/Dev/Data/landing/",
+  "format":        "parquet",
+  "delimiter":       "|",
+  "partition":  [ {"columnName":"starttime","columnType":"string"} ],
+  "metadata": [
+                {"columnName":"SUB_APP_ID_SEQ","columnType":"begint"},
+                {"columnName":"CLASS_NAME","columnType":"string"},
+                {"columnName":"MAIN_PROTOCOL_NAME","columnType":"string"},
+                {"columnName":"SUB_APP_NAME_SEQ","columnType":"string"}
+  ]
+}

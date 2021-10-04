@@ -1,0 +1,23 @@
+{
+  "schema":        "landing",
+  "tableName":     "suscriptora",
+  "locationHDFS":  "/Dev/Data/landing/",
+  "partition":     "vchmsisdn",
+  "format":        "parquet",
+  "metadata": [
+    {"columnName":"vchmsisdn","columnType":"string"},
+    {"columnName":"vchtipocontrato","columnType":"string"},
+    {"columnName":"vchtde","columnType":"begint"},
+    {"columnName":"vchestado","columnType":"string"},
+    {"columnName":"vchmotivoestado","columnType":"string"},
+    {"columnName":"vchfechaactivacion","columnType":""},
+    {"columnName":"vchfechadesactivacion","columnType":""},
+    {"columnName":"vchmercado","columnType":""},
+    {"columnName":"vchplantarifario","columnType":"string"},
+    {"columnName":"vchtmcode","columnType":"begint"},
+    {"columnName":"vchco_code","columnType":"string"},
+    {"columnName":"feccarga_bigdata","columnType":""},
+    {"columnName":"vchusrcarga_bigdata","columnType":"string"},
+    {"columnName":"numfecproceso_part","columnType":""}
+  ]
+}
